@@ -15,15 +15,30 @@ class DarkSkyService
   def locations
     {
       new_york: {
-        latitude: '40.7831',
-        longitude: '73.9712'
+        latitude: '40.7589',
+        longitude: '-73.9851'
       }
     }
   end
 
   def get_todays_weather(city)
-    get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:longitude]},#{locations[city][:latitude]}")[:currently]
+    get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:latitude]},#{locations[city][:longitude]}")[:currently]
   end
 
+  def get_icon(icon)
+    icons = {
+      'clear-day' => ':sunny:',
+      'clear-night' => ':crescent_moon:',
+      'partly-cloudy-day' => ':partly_sunny:',
+      'partly-cloudy-night' => ':partly_sunny:',
+      'cloudy' => ':cloud:',
+      'rain' => ':rain_cloud:',
+      'sleet' => ':snow_cloud:',
+      'snow' => ':snowflake:',
+      'wind' => ':wind_blowing_face:',
+      'fog' => ':fog:'
+    }
+    icons[icon]
+  end
 
 end
