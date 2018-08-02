@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe SlackBot::Bot do
+describe WeatherBot::Bot do
   def app
-    SlackBot::Bot.instance
+    WeatherBot::Bot.instance
   end
 
   subject { app }
