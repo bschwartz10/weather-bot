@@ -20,7 +20,7 @@ module WeatherBot
         client.web_client.chat_postMessage(
           channel: data.channel,
           as_user: true,
-          text: "Tomorrows forecaset for New York is #{weather[:summary]} The temperature will range from a low of #{weather[:temperatureLow]}˚F and a high of #{weather[:temperatureHigh]}˚F #{icon}."
+          text: "Tomorrows forecaset for New York is #{weather[:summary]} The temperature will range from a low of #{weather[:temperatureLow]}˚F to a high of #{weather[:temperatureHigh]}˚F #{icon}."
         )
       end
       command 'Weekly forecast' do |client, data, _match|
