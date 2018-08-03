@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'dotenv'
 gem 'celluloid-io'
 gem 'faraday'
+gem 'activesupport'
 
 group :development, :test do
   gem 'rake'
