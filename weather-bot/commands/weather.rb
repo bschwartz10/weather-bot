@@ -26,7 +26,6 @@ module WeatherBot
       command 'Weekly forecast' do |client, data, _match|
         dss = DarkSkyService.new
         weather = dss.get_weekly_forecast(:new_york)
-        puts weather.inspect
         text = dss.format_weekly_forecast(weather)
         client.web_client.chat_postMessage(
           channel: data.channel,
