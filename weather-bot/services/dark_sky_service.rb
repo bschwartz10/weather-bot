@@ -25,6 +25,14 @@ class DarkSkyService
     get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:latitude]},#{locations[city][:longitude]}")[:currently]
   end
 
+  def get_tomorrows_weather(city)
+    get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:latitude]},#{locations[city][:longitude]},#{format_date(24.hours.from_now.utc)}")[:daily][:data][0]
+  end
+
+  def format_date(date)
+    date.to_time.to_i
+  end
+
   def get_icon(icon)
     icons = {
       'clear-day' => ':sunny:',
