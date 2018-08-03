@@ -29,8 +29,22 @@ class DarkSkyService
     get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:latitude]},#{locations[city][:longitude]},#{format_date(24.hours.from_now.utc)}")[:daily][:data][0]
   end
 
+  def get_weekly_forecast(city)
+    get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:latitude]},#{locations[city][:longitude]}")[:daily]
+  end
+
   def format_date(date)
     date.to_time.to_i
+  end
+
+  def weekdays
+    [0,1,2,3,4,5,6,7]
+  end
+
+  def format_weekly_forecast(weather)
+    weather[:data].each.with_index.reduce('') do |agg, (daily_forecast, index)|
+      agg << "#{weekdays[index].days.from_now.strftime("%A, %m/%d/%Y")}: #{daily_forecast[:summary]} #{get_icon(daily_forecast[:icon])}\n"
+    end
   end
 
   def get_icon(icon)

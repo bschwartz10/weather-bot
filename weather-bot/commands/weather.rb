@@ -16,12 +16,22 @@ module WeatherBot
       command 'Weather tomorrow' do |client, data, _match|
         dss = DarkSkyService.new
         weather = dss.get_tomorrows_weather(:new_york)
-        puts weather.inspect
         icon = dss.get_icon(weather[:icon])
         client.web_client.chat_postMessage(
           channel: data.channel,
           as_user: true,
           text: "Tomorrows forecaset for New York is #{weather[:summary]} The temperature will range from a low of #{weather[:temperatureLow]}˚F and a high of #{weather[:temperatureHigh]}˚F #{icon}."
+        )
+      end
+      command 'Weekly forecast' do |client, data, _match|
+        dss = DarkSkyService.new
+        weather = dss.get_weekly_forecast(:new_york)
+        puts weather.inspect
+        text = dss.format_weekly_forecast(weather)
+        client.web_client.chat_postMessage(
+          channel: data.channel,
+          as_user: true,
+          text: text
         )
       end
     end

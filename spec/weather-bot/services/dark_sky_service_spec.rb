@@ -34,7 +34,20 @@ describe DarkSkyService do
         expect(weather).to have_key(:icon)
         expect(weather).to have_key(:temperatureLow)
         expect(weather).to have_key(:temperatureHigh)
+      end
+    end
+  end
 
+  describe "weekly forecast" do
+    it "returns daily summary for each day of week" do
+      VCR.use_cassette("services/get_weekly_forecast") do
+        weather = DarkSkyService.new.get_weekly_forecast(:new_york)
+        daily_forecast = weather[:data][0]
+
+        expect(weather).to be_a(Hash)
+        expect(weather[:data]).to be_an(Array)
+        expect(daily_forecast).to have_key(:summary)
+        expect(daily_forecast).to have_key(:icon)
       end
     end
   end
