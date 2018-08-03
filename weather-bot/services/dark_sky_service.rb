@@ -6,21 +6,6 @@ class DarkSkyService
     @conn = Faraday.new(:url => 'https://api.darksky.net')
   end
 
-  # Helper method to return JSON objects based on url and params
-  def get_url(url, params=nil)
-    response = @conn.get(url, params)
-    JSON.parse(response.body, symbolize_names: true)
-  end
-
-  def locations
-    {
-      new_york: {
-        latitude: '40.7589',
-        longitude: '-73.9851'
-      }
-    }
-  end
-
   def get_todays_weather(city)
     get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:latitude]},#{locations[city][:longitude]}")[:currently]
   end
@@ -31,14 +16,6 @@ class DarkSkyService
 
   def get_weekly_forecast(city)
     get_url("/forecast/#{ENV['DARK_SKY_API_TOKEN']}/#{locations[city][:latitude]},#{locations[city][:longitude]}")[:daily]
-  end
-
-  def format_date(date)
-    date.to_time.to_i
-  end
-
-  def weekdays
-    [0,1,2,3,4,5,6,7]
   end
 
   def format_weekly_forecast(weather)
@@ -61,6 +38,31 @@ class DarkSkyService
       'fog' => ':fog:'
     }
     icons[icon]
+  end
+
+  private 
+
+  # Helper method to return JSON objects based on url and params
+  def get_url(url, params=nil)
+    response = @conn.get(url, params)
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def locations
+    {
+      new_york: {
+        latitude: '40.7589',
+        longitude: '-73.9851'
+      }
+    }
+  end
+
+  def format_date(date)
+    date.to_time.to_i
+  end
+
+  def weekdays
+    [0,1,2,3,4,5,6,7]
   end
 
 end
