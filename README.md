@@ -10,6 +10,10 @@ Weather Bot is a slack-bot that informs you of the weather! It uses the [DarkSky
  - This apps dependencies are listed in the Gemfile
  - This app is built on top of the [slack-ruby-bot](https://github.com/slack-ruby/slack-ruby-bot) gem
 
+### Tests
+- This app uses Rspec as its testing framework
+- Run all tests using the `rspec` command
+
 ### Prerequisites
 1. Create your [Slack bot](https://api.slack.com/slack-apps#creating_apps)
 2. Register for your [DarkSky](https://darksky.net/dev) API
@@ -27,3 +31,12 @@ DARK_SKY_API_TOKEN=4fdq1234f3df456789ytrewq3bg5fd54
 5. Run `foreman start` to start the server
 6. Invite your slack-bot to your desired group using the `/invite` command
 7. Type in any of the three commands listed in the overview section and receive the weather!
+
+### Discussion
+This app is organized into two main sections.
+1. Commands
+  - Holds the methods for the commands the app responds to
+2. Services
+  - Encompasses all the logic dealing with the DarkSky API
+
+I closely followed the organization structure that was utilized in the [slack-ruby-bot tutorial](https://github.com/slack-ruby/slack-ruby-bot/blob/master/TUTORIAL.md). I did my best to encapsulate the API logic by creating a DarkSkyService class. I then used the 'command' method given to me by SlackRubyBot::Commands::Base to preform the Real Time Messaging feature of the application.
